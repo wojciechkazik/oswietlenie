@@ -1,178 +1,225 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Kosztów Ogrodu</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f6f6f6;
-}
-
-h2 {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-form {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 1260px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #333;
-}
-
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
-}
-
-input:focus, select:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0f4e55;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    box-sizing: border-box;
-}
-
-button:hover {
-    background-color: #093a40; /* Darker shade for hover */
-}
-
-.results {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
-    text-align: left;
-}
-    </style>
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Kosztów Ogrodu</title>
+  <style>
+    html, body {
+      overflow-x: hidden;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #FFFFFF;
+    }
+    h2 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    form {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 1260px;
+      box-sizing: border-box;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+    }
+    input:focus, select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0f4e55;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-sizing: border-box;
+    }
+    button:hover {
+      background-color: #093a40;
+    }
+    .results {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 20px 0;
+    }
+    .wycena-button-fiolet {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      max-width: 500px;
+      min-width: 250px;
+      font-size: clamp(16px, 1.8vw, 24px);
+      background: #8e42ff;
+      color: white !important;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 15px;
+      padding: 20px 25px;
+      line-height: 1.4;
+      transition: all 300ms ease-in-out;
+      box-shadow: 0 4px 10px rgba(142,66,255,0.4);
+      white-space: normal;
+      word-wrap: break-word;
+    }
+    .wycena-button-fiolet:hover {
+      transform: scale(1.07);
+      background: #7a36db;
+      transition: all 200ms ease-in-out;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-group">
-            <label for="total-area">Powierzchnia całkowita działki (m²):</label>
-            <input id="total-area" type="number" min="0" placeholder="Wpisz powierzchnię działki">
-        </div>
-
-        <div class="form-group">
-            <label for="building-area">Powierzchnia zabudowań (m²):</label>
-            <input id="building-area" type="number" min="0" placeholder="Wpisz powierzchnię zabudowań">
-        </div>
-
-        <div class="form-group">
-            <label for="paved-area">Powierzchnia utwardzona (m²):</label>
-            <input id="paved-area" type="number" min="0" placeholder="Wpisz powierzchnię utwardzoną">
-        </div>
-
-        <div class="form-group">
-            <label for="pricing-options">Opcje cenowe:</label>
-            <select id="pricing-options">
-                <option value="0.8">Minimum</option>
-                <option value="1.0" selected>Średnia</option>
-                <option value="1.4">Rozbudowana</option>
-            </select>
-        </div>
-
-        <button onclick="calculate()">Oblicz</button>
-
-        <div class="results" id="results">
-            <h2>Wyniki</h2>
-            <p><strong>Materiały:</strong></p>
-            <p>Reflektory: <span id="spotlights"></span> szt. x 165 zł = <span id="spotlightCost"></span> zł</p>
-            <p><a href="https://www.lampynowodvorski.pl/lampy-wbijane,175" target="_blank">Reflektory wbijane Nowodvorski</a></p>
-            <p>Słupki: <span id="bollards"></span> szt. x 299 zł = <span id="bollardCost"></span> zł</p>
-            <p><a href="https://www.lampynowodvorski.pl/slupki-oswietleniowe,174" target="_blank">Słupki oświetleniowe Nowodvorski</a></p>
-            <p>Oczka: <span id="insets"></span> szt. x 199 zł = <span id="insetCost"></span> zł</p>
-            <p><a href="https://www.lampynowodvorski.pl/oswietlenie-najazdowe,171" target="_blank">Oświetlenie najazdowe Nowodvorski</a></p>
-            <p><strong>Przewód ziemny:</strong> <span id="totalWiringMb"></span> mb x 5 zł = <span id="wiringCost"></span> zł</p>
-            <p><strong>Arot ochronny:</strong> <span id="arotMb"></span> mb x 7 zł = <span id="arotCost"></span> zł</p>
-            <p><strong>Puszki + żywica epoksydowa:</strong> <span id="junctionBoxesCount"></span> szt. x 20 zł = <span id="junctionBoxCost"></span> zł</p>
-            <p><strong>Robocizna:</strong></p>
-            <p>Wkopanie przewodów: <span id="totalWiringMb2"></span> mb x 20 zł = <span id="trenchingCost"></span> zł</p>
-            <p>Montaż źródeł światła: <span id="junctionBoxesInstall"></span> szt. x 80 zł = <span id="installationCost"></span> zł</p>
-            <p><strong>Całkowity koszt:</strong> <span id="totalCost"></span> zł</p>
-            <p><a href="https://wytwornia-zieleni.pl/ile-kosztuje-projekt-ogrodu" target="_blank" rel="nofollow ugc" style="color: #007bff; text-decoration: none; font-weight: bold;">👉 Sprawdź cenę projektu ogrodu w Wytwórni Zieleni 👌</a></p>
-        </div>
+  <div class="container">
+    <div class="form-group">
+      <label for="total-area">Powierzchnia całkowita działki (m²):</label>
+      <input id="total-area" type="number" min="0" placeholder="Wpisz powierzchnię działki">
     </div>
 
-    <script>
-        function calculate() {
-            const totalArea = parseFloat(document.getElementById('total-area').value) || 0;
-            const buildingArea = parseFloat(document.getElementById('building-area').value) || 0;
-            const pavedArea = parseFloat(document.getElementById('paved-area').value) || 0;
-            const pricingOption = parseFloat(document.getElementById('pricing-options').value);
+    <div class="form-group">
+      <label for="building-area">Powierzchnia zabudowań (m²):</label>
+      <input id="building-area" type="number" min="0" placeholder="Wpisz powierzchnię zabudowań">
+    </div>
 
-            const greenArea = totalArea - buildingArea - pavedArea;
+    <div class="form-group">
+      <label for="paved-area">Powierzchnia utwardzona (m²):</label>
+      <input id="paved-area" type="number" min="0" placeholder="Wpisz powierzchnię utwardzoną">
+    </div>
 
-            const spotlights = Math.ceil(greenArea / 50 * pricingOption);
-            const bollards = Math.ceil(pavedArea / 20 * pricingOption);
-            const insets = Math.ceil(pavedArea / 30 * pricingOption);
-            const totalWiringMb = Math.ceil(totalArea * 0.15 * pricingOption);
-            const arotMb = totalWiringMb;
-            const junctionBoxesCount = Math.ceil((spotlights + bollards + insets) * pricingOption);
+    <div class="form-group">
+      <label for="pricing-options">Opcje cenowe:</label>
+      <select id="pricing-options">
+        <option value="0.8">Minimum</option>
+        <option value="1.0" selected>Średnia</option>
+        <option value="1.4">Rozbudowana</option>
+      </select>
+    </div>
 
-            const spotlightCost = spotlights * 165;
-            const bollardCost = bollards * 299;
-            const insetCost = insets * 199;
-            const wiringCost = totalWiringMb * 5;
-            const arotCost = arotMb * 7;
-            const junctionBoxCost = junctionBoxesCount * 20;
-            const trenchingCost = totalWiringMb * 20;
-            const installationCost = junctionBoxesCount * 80;
+    <button onclick="calculate()">Oblicz</button>
 
-            const totalCost = spotlightCost + bollardCost + insetCost + wiringCost + arotCost + junctionBoxCost + trenchingCost + installationCost;
+    <div class="results" id="results" style="display: none;">
+      <h2>Wyniki</h2>
+      <p><strong>Koszty materiałów:</strong></p>
+      <p>Reflektory: <span id="spotlights"></span> szt. x 165 zł = <span id="spotlightCost"></span> zł</p>
+      <p><a href="https://www.lampynowodvorski.pl/lampy-wbijane,175" target="_blank">Reflektory wbijane Nowodvorski</a></p>
+      <p>Słupki: <span id="bollards"></span> szt. x 299 zł = <span id="bollardCost"></span> zł</p>
+      <p><a href="https://www.lampynowodvorski.pl/slupki-oswietleniowe,174" target="_blank">Słupki oświetleniowe Nowodvorski</a></p>
+      <p>Oczka: <span id="insets"></span> szt. x 199 zł = <span id="insetCost"></span> zł</p>
+      <p><a href="https://www.lampynowodvorski.pl/oswietlenie-najazdowe,171" target="_blank">Oświetlenie najazdowe Nowodvorski</a></p>
+      <p>Przewód ziemny: <span id="totalWiringMb"></span> mb x 5 zł = <span id="wiringCost"></span> zł</p>
+      <p>Arot ochronny: <span id="arotMb"></span> mb x 7 zł = <span id="arotCost"></span> zł</p>
+      <p>Puszki + żywica epoksydowa: <span id="junctionBoxesCount"></span> szt. x 20 zł = <span id="junctionBoxCost"></span> zł</p>
+      
+      <div style="margin-top:20px;">
+        <p><strong>Koszty robocizny:</strong></p>
+        <p>Wkopanie przewodów: <span id="totalWiringMb2"></span> mb x 20 zł = <span id="trenchingCost"></span> zł</p>
+        <p>Montaż źródeł światła: <span id="junctionBoxesInstall"></span> szt. x 80 zł = <span id="installationCost"></span> zł</p>
+      </div>
+      
+      <div style="margin-top:20px;">
+        <p><strong>Cena całkowita:</strong> <span id="totalCost"></span> zł</p>
+      </div>
+    </div>
+  </div>
 
-            document.getElementById('spotlights').textContent = spotlights;
-            document.getElementById('spotlightCost').textContent = spotlightCost;
-            document.getElementById('bollards').textContent = bollards;
-            document.getElementById('bollardCost').textContent = bollardCost;
-            document.getElementById('insets').textContent = insets;
-            document.getElementById('insetCost').textContent = insetCost;
-            document.getElementById('totalWiringMb').textContent = totalWiringMb;
-            document.getElementById('wiringCost').textContent = wiringCost;
-            document.getElementById('arotMb').textContent = arotMb;
-            document.getElementById('arotCost').textContent = arotCost;
-            document.getElementById('junctionBoxesCount').textContent = junctionBoxesCount;
-            document.getElementById('junctionBoxCost').textContent = junctionBoxCost;
-            document.getElementById('totalWiringMb2').textContent = totalWiringMb;
-            document.getElementById('trenchingCost').textContent = trenchingCost;
-            document.getElementById('junctionBoxesInstall').textContent = junctionBoxesCount;
-            document.getElementById('installationCost').textContent = installationCost;
-            document.getElementById('totalCost').textContent = totalCost;
+  <script>
+    function calculate() {
+      const totalArea = parseFloat(document.getElementById('total-area').value) || 0;
+      const buildingArea = parseFloat(document.getElementById('building-area').value) || 0;
+      const pavedArea = parseFloat(document.getElementById('paved-area').value) || 0;
+      const pricingOption = parseFloat(document.getElementById('pricing-options').value);
 
-            document.getElementById('results').style.display = 'block';
-        }
-    </script>
+      const greenArea = totalArea - buildingArea - pavedArea;
+
+      const spotlights = Math.ceil(greenArea / 50 * pricingOption);
+      const bollards = Math.ceil(pavedArea / 20 * pricingOption);
+      const insets = Math.ceil(pavedArea / 30 * pricingOption);
+      const totalWiringMb = Math.ceil(totalArea * 0.15 * pricingOption);
+      const arotMb = totalWiringMb;
+      const junctionBoxesCount = Math.ceil((spotlights + bollards + insets) * pricingOption);
+
+      const spotlightCost = spotlights * 165;
+      const bollardCost = bollards * 299;
+      const insetCost = insets * 199;
+      const wiringCost = totalWiringMb * 5;
+      const arotCost = arotMb * 7;
+      const junctionBoxCost = junctionBoxesCount * 20;
+      const trenchingCost = totalWiringMb * 20;
+      const installationCost = junctionBoxesCount * 80;
+
+      const totalCost = spotlightCost + bollardCost + insetCost + wiringCost + arotCost + junctionBoxCost + trenchingCost + installationCost;
+
+      document.getElementById('spotlights').textContent = spotlights;
+      document.getElementById('spotlightCost').textContent = spotlightCost;
+      document.getElementById('bollards').textContent = bollards;
+      document.getElementById('bollardCost').textContent = bollardCost;
+      document.getElementById('insets').textContent = insets;
+      document.getElementById('insetCost').textContent = insetCost;
+      document.getElementById('totalWiringMb').textContent = totalWiringMb;
+      document.getElementById('wiringCost').textContent = wiringCost;
+      document.getElementById('arotMb').textContent = arotMb;
+      document.getElementById('arotCost').textContent = arotCost;
+      document.getElementById('junctionBoxesCount').textContent = junctionBoxesCount;
+      document.getElementById('junctionBoxCost').textContent = junctionBoxCost;
+      document.getElementById('totalWiringMb2').textContent = totalWiringMb;
+      document.getElementById('trenchingCost').textContent = trenchingCost;
+      document.getElementById('junctionBoxesInstall').textContent = junctionBoxesCount;
+      document.getElementById('installationCost').textContent = installationCost;
+      document.getElementById('totalCost').textContent = totalCost;
+
+      document.getElementById('results').style.display = 'block';
+
+      // Dodanie guzika ebooków, jeśli jeszcze nie został dodany
+      if (!document.getElementById('ebookOffer')) {
+        const ebookOfferHTML = `
+          <div class="button-container" id="ebookOffer">
+            <a href="https://www.canva.com/design/DAGgwId29o0/ek4cu3ZYKvhtZs41uWVV5Q/view?utm_content=DAGgwId29o0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he859570327" target="_blank" class="wycena-button-fiolet">
+              Planjesz ogród🌲?<br>Sprawdź za darmo gotowe projekty rabat ogrodowych!(kliknij w guzik)
+            </a>
+          </div>
+          <p id="ebookInfo">Z kodem "BLOG-WZ" zniżka na pełna wersję ebooka 🌿✨</p>
+        `;
+        document.getElementById('results').innerHTML += ebookOfferHTML;
+      }
+    }
+  </script>
 </body>
 </html>
